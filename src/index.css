@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --orange: #D97757;
+  --orange-l: #e6906e;
+  --orange-d: #b5613f;
+  --orange-g: rgba(217,119,87,0.15);
+  --orange-gs: rgba(217,119,87,0.35);
+
+  --dark: #2C2C2B;
+  --sage: #C3C2B7;
+  --sage-d: #9e9d92;
+  --black: #1F1F1E;
+  --black-deep: #2C2C2B;
+  --purple: #6665DD;
+  --purple-l: #8382e8;
+
+  --t: #C3C2B7;
+  --tb: #f0efea;
+  --td: #8a8980;
+  --tm: #5c5b54;
+
+  --b: #2C2C2B;
+  --bl: #3a3a38;
+
+  --err: #e05555;
+  --r: 10px;
+
+  /* Tier colours based on value: low (<30% / <3), mid (30-60% / 3-6), high (>60% / >6) */
+  --tier-low: #8a8980;
+  --tier-mid: #D9B557;
+  --tier-high: #D97757;
+  --tier-low-gs: rgba(138,137,128,0.30);
+  --tier-mid-gs: rgba(217,181,87,0.35);
+  --tier-high-gs: rgba(217,119,87,0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--black-deep);
+  color: var(--t);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
