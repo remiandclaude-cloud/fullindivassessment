@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function EmailGate({ answers, onSubmit }) {
+export default function EmailGate({ answers, partOneAnswers, onSubmit }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [consent, setConsent] = useState(false);
@@ -28,6 +28,7 @@ export default function EmailGate({ answers, onSubmit }) {
           name: name.trim(),
           email: email.trim(),
           answers,
+          partOneAnswers,
           hideScores,
         }),
       });

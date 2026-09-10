@@ -190,7 +190,7 @@ export default function App() {
         {screen === 'welcome' && <Welcome onStart={handleStart} />}
         {screen === 'categoryIntro' && <CategoryIntro categoryId={curCatIntro} onContinue={handleCatContinue} />}
         {screen === 'question' && <QuestionPage pageIndex={curQ} answers={answers} onAnswer={handleAnswer} onNext={handleNext} onBack={handleBack} />}
-        {screen === 'emailGate' && <EmailGate answers={answers} onSubmit={handleEmail} />}
+        {screen === 'emailGate' && <EmailGate answers={answers} partOneAnswers={partOneAnswers} onSubmit={handleEmail} />}
         {screen === 'results' && <Results answers={answers} userName={userData?.name} userEmail={userData?.email} hideScores={userData?.hideScores} partOneAnswers={partOneAnswers} />}
       </div>
       <footer className="eq-footer">
