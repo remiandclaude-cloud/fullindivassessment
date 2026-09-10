@@ -141,7 +141,7 @@
 .eq-qid { font-size:1.46rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--tb); margin-bottom:18px; text-align:center; }
 .eq-qt { font-size:0.805rem; line-height:1.7; color:var(--orange-d); text-align:center; margin-bottom:40px; font-weight:400; }
 
-.eq-sc { width:100%; margin-bottom:40px; max-width:520px; margin-left:auto; margin-right:auto; }
+.eq-sc { width:100%; margin-bottom:32px; max-width:520px; margin-left:auto; margin-right:auto; }
 .eq-slv {
   font-size:2.6rem; font-weight:600; color:var(--eq-tier-color, var(--orange));
   text-align:center; line-height:1; margin-bottom:18px;
@@ -183,8 +183,8 @@
 .eq-nav { display:flex; gap:12px; justify-content:center; }
 
 /* ── Part One field blocks (multiple fields per screen) ── */
-.eq-fb { width:100%; max-width:520px; margin:0 auto 40px; }
-.eq-fb:last-of-type { margin-bottom: 32px; }
+.eq-fb { width:100%; max-width:520px; margin:0 auto 32px; }
+.eq-fb:last-of-type { margin-bottom: 26px; }
 
 /* ── Chips (multi-select toggles, e.g. sleep continuity) ── */
 .eq-chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
