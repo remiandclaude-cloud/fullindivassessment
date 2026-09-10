@@ -1,6 +1,5 @@
-/* Temporary placeholder shown once all 5 Part One sections are complete,
- * until the real aggregate Part One results page is built. Lets us
- * validate scores and jump into Part 2 for testing. */
+/* Transition screen shown after all 5 Part One sections are complete,
+ * before starting Part Two. */
 export default function PartOneStub({ sleepScore, movementScore, nutritionScore, socialScore, dataContentScore, onContinuePart2 }) {
   const scores = [
     ['Sleep', sleepScore],
@@ -12,7 +11,7 @@ export default function PartOneStub({ sleepScore, movementScore, nutritionScore,
   return (
     <div className="eq-welcome">
       <div className="eq-wc">
-        <div className="eq-badge">Part 1 Complete — All 5 Sections</div>
+        <div className="eq-badge">Part 1 Complete</div>
         <h1 style={{ fontSize: '1.6rem' }}>
           {scores.map(([label, score], i) => (
             <span key={label}>
@@ -21,8 +20,8 @@ export default function PartOneStub({ sleepScore, movementScore, nutritionScore,
             </span>
           ))}
         </h1>
-        <p className="eq-wsub">This is a placeholder — Part 1's real results page (a unified profile like Part 2's) isn't built yet. For now, here's Part 2.</p>
-        <button className="eq-btn" onClick={onContinuePart2}>Preview Part 2 →</button>
+        <p className="eq-wsub">That's your nervous system foundations mapped. Now for Part 2 — Core Skills.</p>
+        <button className="eq-btn" onClick={onContinuePart2}>Continue to Part 2 →</button>
       </div>
     </div>
   );

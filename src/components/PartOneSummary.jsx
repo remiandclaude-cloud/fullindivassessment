@@ -93,7 +93,7 @@ export function PartOneHero({ partOneAnswers, hideScores }) {
 
   return (
     <div className="eq-hero">
-      <div className="eq-part-label eq-part-label-lg">Part 1 — Fundamentals</div>
+      <div className="eq-part-label eq-part-label-lg">Part 1 — Foundations</div>
       {!hideScores && overallPct != null && (
         <>
           <div className="eq-hero-tier eq-hero-tier-lg" style={{ color: tierColor(overallPct) }}>
@@ -123,7 +123,7 @@ export function PartOneDetails({ partOneAnswers, hideScores }) {
 
   return (
     <>
-      <div className="eq-part-label">Part 1 — Fundamentals</div>
+      <div className="eq-part-label">Part 1 — Foundations</div>
       <div className="eq-p1-cards">
         {sections.map((s) => (
           <div key={s.id} className="eq-cr">

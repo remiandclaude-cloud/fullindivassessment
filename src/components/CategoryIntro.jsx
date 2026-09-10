@@ -7,7 +7,7 @@ export default function CategoryIntro({ categoryId, onContinue }) {
   return (
     <div className="eq-ci">
       <div className="eq-cic">
-        <div className="eq-cn">Part {idx + 1} of 3</div>
+        <div className="eq-cn">Part 2 · Section {idx + 1} of 3</div>
         <h2 className="eq-ct">{cat.name}</h2>
         <p className="eq-cd">{cat.description}</p>
         <div className="eq-sa">

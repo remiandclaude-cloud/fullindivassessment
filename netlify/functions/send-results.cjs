@@ -437,7 +437,7 @@ function buildEmailHTML(params) {
 
   var partOneSummaryBlock =
     '<div style="text-align:center;margin-bottom:8px;">' +
-      '<div style="' + PART_LABEL_LG + '">Part 1 — Fundamentals</div>' +
+      '<div style="' + PART_LABEL_LG + '">Part 1 — Foundations</div>' +
       partOneOverallLineHTML +
     '</div>' +
     part1OverviewTable +
@@ -452,7 +452,7 @@ function buildEmailHTML(params) {
     '<div style="margin-bottom:32px;">' + summaryHTML + '</div>';
 
   var partOneDetailsBlock =
-    '<div style="' + PART_LABEL_SM + '">Part 1 — Fundamentals</div>' +
+    '<div style="' + PART_LABEL_SM + '">Part 1 — Foundations</div>' +
     buildPartOneDetailCards(partOneSections, hideScores);
 
   var part2DetailsBlock =
