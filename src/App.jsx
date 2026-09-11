@@ -195,7 +195,6 @@ export default function App() {
       </div>
       <footer className="eq-footer">
         <div className="eq-footer-links">
-          <a href="https://www.instagram.com/weareequipped" target="_blank" rel="noopener noreferrer">Instagram</a>
           <a href="https://www.linkedin.com/company/weareequipped" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="https://substack.com/@weareequipped" target="_blank" rel="noopener noreferrer">Newsletter</a>
           <a href="https://weareequipped.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
