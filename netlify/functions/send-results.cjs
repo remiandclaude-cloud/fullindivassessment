@@ -5,7 +5,7 @@
 // the triangle/pentagon SVGs. The logo is a hosted URL, not a base64 data
 // URI — most clients (Gmail included) block data: URIs as images.
 
-var LOGO_URL = "https://equippedintake.netlify.app/logo.png";
+var LOGO_URL = "https://intake.equipped.to/logo.png";
 
 function getTier(pct) {
   if (pct < 40) return "wakingUp";
