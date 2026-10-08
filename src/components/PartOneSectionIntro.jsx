@@ -1,4 +1,4 @@
-/* Generic "Section X of 5" intro screen, reused across all Part One sections. */
+/* Generic "Section X of N" intro screen, reused across all Part One sections. */
 export default function PartOneSectionIntro({ index, total, title, description, onContinue }) {
   return (
     <div className="eq-ci">

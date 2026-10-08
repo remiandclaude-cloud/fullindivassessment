@@ -291,3 +291,84 @@ export function scoreDataContent({ screenTimeHours, actionability, catastrophizi
   if (scores.some((s) => s == null)) return null;
   return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
 }
+
+/* ── Light & Nature ── */
+
+export const LIGHT_NATURE_SOURCES = [
+  { key: 'commute', label: 'Commute on foot or by bike' },
+  { key: 'breaks', label: 'Breaks or walks outside' },
+  { key: 'exercise', label: 'Outdoor exercise or sport' },
+  { key: 'work', label: 'Work outdoors' },
+  { key: 'home', label: 'Garden or balcony time' },
+];
+
+export function morningLightLabel(days) {
+  if (days == null) return null;
+  if (days === 0) return 'Never';
+  if (days === 7) return 'Every day';
+  return `${days} ${days === 1 ? 'day' : 'days'} a week`;
+}
+
+export function daylightLabel(hours) {
+  if (hours == null) return null;
+  if (hours === 0) return 'None';
+  return hours >= 3 ? '3+ hrs' : `${hours} hrs`;
+}
+
+export function wildNatureLabel(times) {
+  if (times == null) return null;
+  if (times === 0) return 'Not at all';
+  if (times >= 10) return '10+ times a quarter';
+  return `${times} ${times === 1 ? 'time' : 'times'} a quarter`;
+}
+
+export function urbanNatureLabel(times) {
+  if (times == null) return null;
+  if (times === 0) return 'Never';
+  if (times === 1) return 'Once a week';
+  if (times >= 7) return 'Every day';
+  return `${times} times a week`;
+}
+
+/* Days per week of morning daylight (0-7) — more = better, linear */
+export function scoreMorningLight(days) {
+  if (days == null) return null;
+  return (days / 7) * 100;
+}
+
+/* [hours outdoors in daylight, score] — steep early gains, plateaus ~2-3h */
+const DAYLIGHT_CURVE = [[0, 0], [0.5, 30], [1, 60], [1.5, 80], [2, 92], [3, 100]];
+
+export function scoreDaylight(hours) {
+  if (hours == null) return null;
+  return interpolate(DAYLIGHT_CURVE, hours);
+}
+
+/* [wild-nature outings per quarter, score] — rarer than urban nature, so
+ * the plateau sits at ~8 outings a quarter (roughly every 1-2 weeks) */
+const WILD_NATURE_CURVE = [[0, 0], [1, 20], [2, 40], [3, 60], [4, 75], [6, 92], [8, 100], [10, 100]];
+
+export function scoreWildNature(timesPerQuarter) {
+  if (timesPerQuarter == null) return null;
+  return interpolate(WILD_NATURE_CURVE, timesPerQuarter);
+}
+
+/* [urban-nature visits per week, score] — plateaus at ~5 visits a week */
+const URBAN_NATURE_CURVE = [[0, 0], [1, 25], [2, 50], [3, 70], [5, 100], [7, 100]];
+
+export function scoreUrbanNature(timesPerWeek) {
+  if (timesPerWeek == null) return null;
+  return interpolate(URBAN_NATURE_CURVE, timesPerWeek);
+}
+
+/* How they get their outdoor time (sources) is context only, not scored */
+export function scoreLightNature({ morningLightDays, daylightHrs, wildNaturePerQuarter, urbanNaturePerWeek } = {}) {
+  const scores = [
+    scoreMorningLight(morningLightDays),
+    scoreDaylight(daylightHrs),
+    scoreWildNature(wildNaturePerQuarter),
+    scoreUrbanNature(urbanNaturePerWeek),
+  ];
+  if (scores.some((s) => s == null)) return null;
+  return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+}

@@ -11,9 +11,10 @@ import MovementSection from './components/MovementSection';
 import NutritionSection from './components/NutritionSection';
 import SocialSection from './components/SocialSection';
 import DataContentSection from './components/DataContentSection';
+import LightNatureSection from './components/LightNatureSection';
 import PartOneStub from './components/PartOneStub';
 import { categories, questions } from './data/questions';
-import { scoreSleep, scoreMovement, scoreNutrition, scoreSocial, scoreDataContent } from './data/partOneScoring';
+import { scoreSleep, scoreMovement, scoreNutrition, scoreSocial, scoreDataContent, scoreLightNature } from './data/partOneScoring';
 import logoSrc from './assets/logo.png';
 import './App.css';
 
@@ -21,7 +22,7 @@ import './App.css';
  * Flow:
  *  partOneOverview → sleepIntro → sleep → movementIntro → movement →
  *  nutritionIntro → nutrition → socialIntro → social → dataContentIntro →
- *  dataContent → partOneStub (all 5 sections complete) → [Preview Part 2 →]
+ *  dataContent → lightNatureIntro → lightNature → partOneStub (all 6 sections complete)
  *
  * Part Two (27 questions, 3 per page — 3 pages per core skill):
  *  welcome → categoryIntro(notice) → pages 0,3,6 →
@@ -40,7 +41,7 @@ export default function App() {
   const [curQ, setCurQ] = useState(0);
   const [curCatIntro, setCurCatIntro] = useState(null);
   const [answers, setAnswers] = useState({});
-  const [partOneAnswers, setPartOneAnswers] = useState({ sleep: null, movement: null, nutrition: null, social: null, dataContent: null });
+  const [partOneAnswers, setPartOneAnswers] = useState({ sleep: null, movement: null, nutrition: null, social: null, dataContent: null, lightNature: null });
   const [userData, setUserData] = useState(null);
   const appRef = useRef(null);
 
@@ -83,8 +84,15 @@ export default function App() {
   const handleDataContentChange = useCallback((data) => {
     setPartOneAnswers((p) => ({ ...p, dataContent: data }));
   }, []);
-  const handleDataContentNext = useCallback(() => setScreen('partOneStub'), []);
+  const handleDataContentNext = useCallback(() => setScreen('lightNatureIntro'), []);
   const handleDataContentBack = useCallback(() => setScreen('social'), []);
+
+  const handleLightNatureIntroContinue = useCallback(() => setScreen('lightNature'), []);
+  const handleLightNatureChange = useCallback((data) => {
+    setPartOneAnswers((p) => ({ ...p, lightNature: data }));
+  }, []);
+  const handleLightNatureNext = useCallback(() => setScreen('partOneStub'), []);
+  const handleLightNatureBack = useCallback(() => setScreen('dataContent'), []);
 
   const handleStart = useCallback(() => {
     setCurCatIntro('notice');
@@ -129,7 +137,7 @@ export default function App() {
         {screen === 'partOneOverview' && <PartOneOverview onStart={handlePartOneStart} />}
         {screen === 'sleepIntro' && (
           <PartOneSectionIntro
-            index={1} total={5} title="Sleep"
+            index={1} total={6} title="Sleep"
             description="Sleep is the foundation everything else is built on. Three questions on how much you get, how continuous it is, and how restorative it feels — plus space to flag anything unusual."
             onContinue={handleSleepIntroContinue}
           />
@@ -139,7 +147,7 @@ export default function App() {
         )}
         {screen === 'movementIntro' && (
           <PartOneSectionIntro
-            index={2} total={5} title="Movement"
+            index={2} total={6} title="Movement"
             description="How often you move, how that time is spent, and how prone your body is to injury. Four quick ratings plus space to flag anything unusual."
             onContinue={handleMovementIntroContinue}
           />
@@ -149,7 +157,7 @@ export default function App() {
         )}
         {screen === 'nutritionIntro' && (
           <PartOneSectionIntro
-            index={3} total={5} title="Nutrition"
+            index={3} total={6} title="Nutrition"
             description="Hydration, protein, alcohol, caffeine, sugar, and other stimulants — six quick ratings, plus space to note supplements or any diet you follow."
             onContinue={handleNutritionIntroContinue}
           />
@@ -159,7 +167,7 @@ export default function App() {
         )}
         {screen === 'socialIntro' && (
           <PartOneSectionIntro
-            index={4} total={5} title="Social"
+            index={4} total={6} title="Social"
             description="Who you spend time with outside of work, how many you can count on, and how deep those connections go. Four quick ratings, plus which kinds of relationships you currently have."
             onContinue={handleSocialIntroContinue}
           />
@@ -169,13 +177,23 @@ export default function App() {
         )}
         {screen === 'dataContentIntro' && (
           <PartOneSectionIntro
-            index={5} total={5} title="Data & Content"
+            index={5} total={6} title="Data & Content"
             description="Screen time, what you consume, and how actionable versus catastrophic it tends to be. Three quick ratings, plus format and theme."
             onContinue={handleDataContentIntroContinue}
           />
         )}
         {screen === 'dataContent' && (
           <DataContentSection value={partOneAnswers.dataContent} onChange={handleDataContentChange} onNext={handleDataContentNext} onBack={handleDataContentBack} />
+        )}
+        {screen === 'lightNatureIntro' && (
+          <PartOneSectionIntro
+            index={6} total={6} title="Light & Nature"
+            description="Daylight and time outdoors anchor your body clock and settle your nervous system. Four quick ratings on morning light, daylight, and how often you get into wild and everyday nature."
+            onContinue={handleLightNatureIntroContinue}
+          />
+        )}
+        {screen === 'lightNature' && (
+          <LightNatureSection value={partOneAnswers.lightNature} onChange={handleLightNatureChange} onNext={handleLightNatureNext} onBack={handleLightNatureBack} />
         )}
         {screen === 'partOneStub' && (
           <PartOneStub
@@ -184,6 +202,7 @@ export default function App() {
             nutritionScore={scoreNutrition(partOneAnswers.nutrition)}
             socialScore={scoreSocial(partOneAnswers.social)}
             dataContentScore={scoreDataContent(partOneAnswers.dataContent)}
+            lightNatureScore={scoreLightNature(partOneAnswers.lightNature)}
             onContinuePart2={handleStart}
           />
         )}

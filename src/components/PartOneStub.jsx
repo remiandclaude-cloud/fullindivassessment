@@ -1,12 +1,13 @@
-/* Transition screen shown after all 5 Part One sections are complete,
+/* Transition screen shown after all 6 Part One sections are complete,
  * before starting Part Two. */
-export default function PartOneStub({ sleepScore, movementScore, nutritionScore, socialScore, dataContentScore, onContinuePart2 }) {
+export default function PartOneStub({ sleepScore, movementScore, nutritionScore, socialScore, dataContentScore, lightNatureScore, onContinuePart2 }) {
   const scores = [
     ['Sleep', sleepScore],
     ['Movement', movementScore],
     ['Nutrition', nutritionScore],
     ['Social', socialScore],
     ['Data & Content', dataContentScore],
+    ['Light & Nature', lightNatureScore],
   ];
   return (
     <div className="eq-welcome">

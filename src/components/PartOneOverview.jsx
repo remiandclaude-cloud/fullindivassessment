@@ -11,12 +11,12 @@ export default function PartOneOverview({ onStart }) {
         <p className="eq-wsub eq-wsub-lead">Your nervous system is shaped by what you feed it, and how well you can steer it.</p>
         <p className="eq-wsub">This assessment covers both, in two parts:</p>
         <ul className="eq-wlist">
-          <li><strong>Part 1 — Foundations.</strong> The daily inputs that build, or erode, your baseline: sleep, movement, nutrition, social connection, and the information you consume.</li>
+          <li><strong>Part 1 — Foundations.</strong> The daily inputs that build, or erode, your baseline: sleep, movement, nutrition, social connection, the information you consume, and your light and time in nature.</li>
           <li><strong>Part 2 — Core Skills.</strong> How well you can read and steer your nervous system in real time: Notice, Shift, and Expand.</li>
         </ul>
         <p className="eq-wsub">At the end, you'll get one personalised profile across both.</p>
         <div className="eq-meta">
-          <div className="eq-mi"><span className="eq-mi-i">&#9201;</span><span>25 to 35 minutes</span></div>
+          <div className="eq-mi"><span className="eq-mi-i">&#9201;</span><span>30 to 40 minutes</span></div>
           <div className="eq-mi"><span className="eq-mi-i">&#9670;</span><span>2 parts</span></div>
           <div className="eq-mi"><span className="eq-mi-i">&#9673;</span><span>Personalised results</span></div>
         </div>

@@ -4,8 +4,9 @@ import PolygonChart from './PolygonChart';
 import { getTier, getTierLabel } from '../data/tiers';
 import { partOneTierSummaries } from '../data/partOneTiers';
 import {
-  scoreSleep, scoreMovement, scoreNutrition, scoreSocial, scoreDataContent,
-  frequencyLabel, RELATIONSHIP_TYPES, CONTENT_FORMATS, CONTENT_THEMES,
+  scoreSleep, scoreMovement, scoreNutrition, scoreSocial, scoreDataContent, scoreLightNature,
+  frequencyLabel, RELATIONSHIP_TYPES, CONTENT_FORMATS, CONTENT_THEMES, LIGHT_NATURE_SOURCES,
+  morningLightLabel, daylightLabel, wildNatureLabel, urbanNatureLabel,
 } from '../data/partOneScoring';
 
 function labelsFor(keys, options) {
@@ -64,6 +65,16 @@ function dataContentSummary(a) {
   ];
 }
 
+function lightNatureSummary(a) {
+  return [
+    { label: 'Morning light', value: morningLightLabel(a?.morningLightDays) || '—' },
+    { label: 'Daylight outdoors', value: a?.daylightHrs != null ? `${daylightLabel(a.daylightHrs)}/day` : '—' },
+    { label: 'Wild nature', value: wildNatureLabel(a?.wildNaturePerQuarter) || '—' },
+    { label: 'Urban nature', value: urbanNatureLabel(a?.urbanNaturePerWeek) || '—' },
+    { label: 'How you get it', value: labelsFor(a?.sources, LIGHT_NATURE_SOURCES) },
+  ];
+}
+
 function buildSections(pa) {
   return [
     { id: 'sleep', name: 'Sleep', score: scoreSleep(pa.sleep), summary: sleepSummary(pa.sleep) },
@@ -71,6 +82,7 @@ function buildSections(pa) {
     { id: 'nutrition', name: 'Nutrition', score: scoreNutrition(pa.nutrition), summary: nutritionSummary(pa.nutrition) },
     { id: 'social', name: 'Social', score: scoreSocial(pa.social), summary: socialSummary(pa.social) },
     { id: 'dataContent', name: 'Data & Content', score: scoreDataContent(pa.dataContent), summary: dataContentSummary(pa.dataContent) },
+    { id: 'lightNature', name: 'Light & Nature', score: scoreLightNature(pa.lightNature), summary: lightNatureSummary(pa.lightNature) },
   ];
 }
 

@@ -96,7 +96,7 @@ function generateSummary(noticePct, shiftPct, expandPct) {
   return [noticeS[getTier(noticePct)], shiftS[getTier(shiftPct)], expandS[getTier(expandPct)]];
 }
 
-/* ── Part One (Sleep / Movement / Nutrition / Social / Data & Content) ──
+/* ── Part One (Sleep / Movement / Nutrition / Social / Data & Content / Light & Nature) ──
  * Mirrors src/data/partOneScoring.js and src/data/partOneTiers.js. This
  * function can't import from src/ (separate bundle), so it's duplicated
  * here — keep in sync with the frontend if those formulas change. */
@@ -223,6 +223,51 @@ function scoreDataContent(a) {
   return Math.round(scores.reduce(function (s, v) { return s + v; }, 0) / scores.length);
 }
 
+var LIGHT_NATURE_SOURCES = [
+  { key: "commute", label: "Commute on foot or by bike" },
+  { key: "breaks", label: "Breaks or walks outside" },
+  { key: "exercise", label: "Outdoor exercise or sport" },
+  { key: "work", label: "Work outdoors" },
+  { key: "home", label: "Garden or balcony time" },
+];
+function morningLightLabel(d) {
+  if (d == null) return null;
+  if (d === 0) return "Never";
+  if (d === 7) return "Every day";
+  return d + (d === 1 ? " day" : " days") + " a week";
+}
+function daylightLabel(h) {
+  if (h == null) return null;
+  if (h === 0) return "None";
+  return h >= 3 ? "3+ hrs" : h + " hrs";
+}
+function wildNatureLabel(t) {
+  if (t == null) return null;
+  if (t === 0) return "Not at all";
+  if (t >= 10) return "10+ times a quarter";
+  return t + (t === 1 ? " time" : " times") + " a quarter";
+}
+function urbanNatureLabel(t) {
+  if (t == null) return null;
+  if (t === 0) return "Never";
+  if (t === 1) return "Once a week";
+  if (t >= 7) return "Every day";
+  return t + " times a week";
+}
+var DAYLIGHT_CURVE = [[0, 0], [0.5, 30], [1, 60], [1.5, 80], [2, 92], [3, 100]];
+var WILD_NATURE_CURVE = [[0, 0], [1, 20], [2, 40], [3, 60], [4, 75], [6, 92], [8, 100], [10, 100]];
+var URBAN_NATURE_CURVE = [[0, 0], [1, 25], [2, 50], [3, 70], [5, 100], [7, 100]];
+function scoreMorningLight(d) { return d == null ? null : (d / 7) * 100; }
+function scoreDaylight(h) { return h == null ? null : interpolate(DAYLIGHT_CURVE, h); }
+function scoreWildNature(t) { return t == null ? null : interpolate(WILD_NATURE_CURVE, t); }
+function scoreUrbanNature(t) { return t == null ? null : interpolate(URBAN_NATURE_CURVE, t); }
+function scoreLightNature(a) {
+  a = a || {};
+  var scores = [scoreMorningLight(a.morningLightDays), scoreDaylight(a.daylightHrs), scoreWildNature(a.wildNaturePerQuarter), scoreUrbanNature(a.urbanNaturePerWeek)];
+  for (var i = 0; i < scores.length; i++) { if (scores[i] == null) return null; }
+  return Math.round(scores.reduce(function (s, v) { return s + v; }, 0) / scores.length);
+}
+
 var partOneTierSummaries = {
   sleep: {
     wakingUp: "Sleep isn't yet doing its job. Your duration, continuity, or how rested you feel on waking point to a foundation that needs rebuilding before much else will stick. This is the highest-leverage place to start.",
@@ -248,6 +293,11 @@ var partOneTierSummaries = {
     wakingUp: "Screens are taking up a lot of the day, and what's coming in tends to be more passive or more anxiety-driving than useful. Even a small shift toward actionable content changes how your nervous system carries the rest of the day.",
     building: "Your relationship with content is mixed — some of it is actionable and calm, some of it is passive or catastrophic, and the balance could tip either way. Worth noticing which sources are doing the pulling.",
     equipped: "What you consume is mostly working for you — actionable, and not steeped in doom. Screen time itself is the only thing worth keeping an eye on.",
+  },
+  lightNature: {
+    wakingUp: "You're getting little daylight or time in nature right now. Light early in the day anchors your body clock, and time outside settles the nervous system — even ten minutes outdoors after waking is a high-leverage place to start.",
+    building: "Daylight and nature are part of your life, but not reliably. Either the morning light, the time outdoors, or the wilder outings are patchy — whichever is thinnest is probably your easiest win.",
+    equipped: "You're regularly outdoors, in daylight, and getting real time in nature. This is a quiet strength — it supports your sleep, your mood, and how well you recover from stress.",
   },
 };
 
@@ -312,6 +362,17 @@ function dataContentRows(a) {
   ];
 }
 
+function lightNatureRows(a) {
+  a = a || {};
+  return [
+    { label: "Morning light", value: morningLightLabel(a.morningLightDays) || "—" },
+    { label: "Daylight outdoors", value: a.daylightHrs != null ? daylightLabel(a.daylightHrs) + "/day" : "—" },
+    { label: "Wild nature", value: wildNatureLabel(a.wildNaturePerQuarter) || "—" },
+    { label: "Urban nature", value: urbanNatureLabel(a.urbanNaturePerWeek) || "—" },
+    { label: "How you get it", value: labelsFor(a.sources, LIGHT_NATURE_SOURCES) },
+  ];
+}
+
 function buildPartOneSections(partOneAnswers) {
   var pa = partOneAnswers || {};
   return [
@@ -320,6 +381,7 @@ function buildPartOneSections(partOneAnswers) {
     { id: "nutrition", name: "Nutrition", score: scoreNutrition(pa.nutrition), rows: nutritionRows(pa.nutrition) },
     { id: "social", name: "Social", score: scoreSocial(pa.social), rows: socialRows(pa.social) },
     { id: "dataContent", name: "Data & Content", score: scoreDataContent(pa.dataContent), rows: dataContentRows(pa.dataContent) },
+    { id: "lightNature", name: "Light & Nature", score: scoreLightNature(pa.lightNature), rows: lightNatureRows(pa.lightNature) },
   ];
 }
 

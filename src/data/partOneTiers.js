@@ -1,5 +1,5 @@
 /*
- * Short tier-based summaries for Part One's 5 dimensions, mirroring the
+ * Short tier-based summaries for Part One's 6 dimensions, mirroring the
  * style/length of Part Two's generateSummary — 2-3 sentences, same voice.
  */
 export const partOneTierSummaries = {
@@ -27,5 +27,10 @@ export const partOneTierSummaries = {
     wakingUp: "Screens are taking up a lot of the day, and what's coming in tends to be more passive or more anxiety-driving than useful. Even a small shift toward actionable content changes how your nervous system carries the rest of the day.",
     building: "Your relationship with content is mixed — some of it is actionable and calm, some of it is passive or catastrophic, and the balance could tip either way. Worth noticing which sources are doing the pulling.",
     equipped: "What you consume is mostly working for you — actionable, and not steeped in doom. Screen time itself is the only thing worth keeping an eye on.",
+  },
+  lightNature: {
+    wakingUp: "You're getting little daylight or time in nature right now. Light early in the day anchors your body clock, and time outside settles the nervous system — even ten minutes outdoors after waking is a high-leverage place to start.",
+    building: "Daylight and nature are part of your life, but not reliably. Either the morning light, the time outdoors, or the wilder outings are patchy — whichever is thinnest is probably your easiest win.",
+    equipped: "You're regularly outdoors, in daylight, and getting real time in nature. This is a quiet strength — it supports your sleep, your mood, and how well you recover from stress.",
   },
 };
